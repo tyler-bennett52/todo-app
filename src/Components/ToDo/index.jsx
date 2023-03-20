@@ -1,18 +1,34 @@
 import React, { useContext, useEffect, useState } from 'react';
 import useForm from '../../hooks/form.js';
 import { SettingsContext } from '../../Context/Settings/index.jsx';
+import {Button, Pagination} from '@mantine/core'
 import { v4 as uuid } from 'uuid';
-import './ToDo.css'
+import './ToDo.css';
+import List from '../List'; 
 
 const ToDo = () => {
-
   const [defaultValues,] = useState({
     difficulty: 4,
   });
   const [list, setList] = useState([]);
+  const [displayList, setDisplayList] = useState([...list]);
+  const [currentPage, setCurrentPage] = useState(1)
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
-  const { numToDisplay, showCompleted, sortingWord } = useContext(SettingsContext)
+  const { numToDisplay, showCompleted, sortingWord } = useContext(SettingsContext);
+  // CREATE DISPLAY LIST STATE
+  // CREATE USEEFFECT THAT MONITORS PAGINATION, NUMTODISPLAY, SHOWCOMPLETED, SORTINGWORD
+  // EFFECT WILL UPDATE DISPLAYLIST UPON CHANGE OF THOSE 4 ITEMS
+
+  useEffect(() => {
+    let tempArray = [];
+    let displayStart = (currentPage - 1) * numToDisplay;
+    if (!showCompleted) {
+      tempArray = [...list.filter(todo => todo.complete === false)]
+    }
+    let currPageItems = tempArray.splice(displayStart, numToDisplay);
+    setDisplayList(currPageItems);
+  }, [list, currentPage, numToDisplay, showCompleted])
 
   function addItem(item) {
     item.id = uuid();
@@ -27,7 +43,6 @@ const ToDo = () => {
   }
 
   function toggleComplete(id) {
-
     const items = list.map(item => {
       if (item.id === id) {
         item.complete = !item.complete;
@@ -36,15 +51,12 @@ const ToDo = () => {
     });
 
     setList(items);
-
   }
 
   useEffect(() => {
     let incompleteCount = list.filter(item => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
-    // linter will want 'incomplete' added to dependency array unnecessarily. 
-    // disable code used to avoid linter warning 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [list]);
 
@@ -72,21 +84,16 @@ const ToDo = () => {
           </label>
 
           <label>
-            <button type="submit">Add Item</button>
+            <Button type="submit">Add Item</Button>
           </label>
         </form>
-        <div className="card-holder">
-          {list.map(item => (
-            <div key={item.id} style={{ border: "1px red solid", width: "100%" }}>
-              <p>{item.text}</p>
-              <p><small>Assigned to: {item.assignee}</small></p>
-              <p><small>Difficulty: {item.difficulty}</small></p>
-              <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-              <hr />
-            </div>
-          ))}
-        </div>
+        <List list={list} displayList={displayList} toggleComplete={toggleComplete} />
       </div>
+      <Pagination
+      total={Math.ceil(showCompleted ? list.length : list.filter(todo => todo.complete === false).length / numToDisplay)}
+      current={currentPage}
+      onChange={(page) => setCurrentPage(page)
+      }/>
     </>
   );
 };
