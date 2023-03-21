@@ -55,15 +55,15 @@ const ToDo = () => {
         <form className="form" onSubmit={handleSubmit}>
           <h2>Add To Do Item</h2>
           <label>
-            <span>To Do Item</span>
+            <span>To Do Item </span>
             <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
           </label>
           <label>
-            <span>Assigned To</span>
+            <span>Assigned To  </span>
             <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
           </label>
           <label>
-            <span>Difficulty</span>
+            <span>Difficulty  </span>
             <input
               onChange={handleChange}
               defaultValue={defaultValues.difficulty}

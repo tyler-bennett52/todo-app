@@ -39,7 +39,9 @@ Unit tests for simple components and an integration test to test the more compli
 #### UML
 
 Day 1 UML
-![Lab-30 UML](./public/Todo-UML.png)
+![Lab-31 UML](./public/Todo-UML.png)
+Day 2 UML
+![Lab-32 UML](./public/Lab-32-UML.png)
 
 #### Attribution
 
