@@ -32,10 +32,10 @@ const ToDo = () => {
     setList([...list, item]);
   }
 
-  // function deleteItem(id) {
-  //   const items = list.filter((item) => item.id !== id);
-  //   setList(items);
-  // }
+  function deleteItem(id) {
+    const items = list.filter((item) => item.id !== id);
+    setList(items);
+  }
 
   function toggleComplete(id) {
     const items = list.map((item) => {
@@ -77,7 +77,7 @@ const ToDo = () => {
             <Button type="submit">Add Item</Button>
           </label>
         </form>
-        <List list={list} displayList={displayList} toggleComplete={toggleComplete} />
+        <List list={list} displayList={displayList} toggleComplete={toggleComplete} deleteItem={deleteItem} />
       </div>
       <Pagination
         className="Pagination"
