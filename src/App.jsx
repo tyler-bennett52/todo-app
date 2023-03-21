@@ -10,19 +10,15 @@ export default class App extends React.Component {
     return (
       <>
         <Router>
-        <nav><ul style={{ listStyle: "none", display: "flex", justifyContent: "space-around", backgroundColor: "#3A7ED0", padding: "1rem", margin: 0 }} className="links">
-        <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/settings">Settings</Link>
-            </li>
+          <nav><ul style={{ listStyle: "none", display: "flex", justifyContent: "space-around", backgroundColor: "#3A7ED0", padding: "1rem", margin: 0 }} className="links">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/settings">Settings</Link></li>
             <li>Login</li>
-        </ul></nav>
+          </ul></nav>
           <Routes>
             <Route exact path="/" element={<ToDo />} />
             <Route path="/settings" element={<Settings />} />
-            </Routes>
+          </Routes>
           {/* <ToDo /> */}
         </Router>
       </>

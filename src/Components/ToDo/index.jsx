@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import useForm from '../../hooks/form.js';
 import { SettingsContext } from '../../Context/Settings/index.jsx';
 import { Button, Pagination } from '@mantine/core';
@@ -7,50 +7,63 @@ import './ToDo.css';
 import List from '../List';
 import Header from '../Header/index.jsx';
 
+// Reducer function for managing state
+function reducer(state, action) {
+  switch (action.type) {
+    case 'ADD_ITEM':
+      return { ...state, list: [...state.list, action.item] };
+    case 'SET_LIST':
+      return { ...state, list: action.list };
+    case 'SET_DISPLAY_LIST':
+      return { ...state, displayList: action.displayList };
+    case 'SET_CURRENT_PAGE':
+      return { ...state, currentPage: action.currentPage };
+    default:
+      throw new Error();
+  }
+}
+
 const ToDo = () => {
   const [defaultValues] = useState({ difficulty: 4 });
-  const [list, setList] = useState([]);
-  const [displayList, setDisplayList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [incomplete, setIncomplete] = useState([]);
+  const [state, dispatch] = useReducer(reducer, {
+    list: [],
+    displayList: [],
+    currentPage: 1,
+    incomplete: [],
+  });
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
   const { numToDisplay, showCompleted } = useContext(SettingsContext);
 
   useEffect(() => {
-    const incompleteItems = list.filter((todo) => !todo.complete);
-    setIncomplete(incompleteItems);
+    const incompleteItems = state.list.filter((todo) => !todo.complete);
 
-    const displayStart = (currentPage - 1) * numToDisplay;
-    const itemsToDisplay = showCompleted ? list : incompleteItems;
+    const displayStart = (state.currentPage - 1) * numToDisplay;
+    const itemsToDisplay = showCompleted ? state.list : incompleteItems;
     const currPageItems = itemsToDisplay.slice(displayStart, displayStart + numToDisplay);
-    setDisplayList(currPageItems);
-  }, [list, currentPage, numToDisplay, showCompleted]);
+
+    dispatch({ type: 'SET_DISPLAY_LIST', displayList: currPageItems });
+  }, [state.list, state.currentPage, numToDisplay, showCompleted]);
 
   function addItem(item) {
     item.id = uuid();
     item.complete = false;
-    setList([...list, item]);
+    dispatch({ type: 'ADD_ITEM', item });
   }
 
-  // function deleteItem(id) {
-  //   const items = list.filter((item) => item.id !== id);
-  //   setList(items);
-  // }
-
   function toggleComplete(id) {
-    const items = list.map((item) => {
+    const items = state.list.map((item) => {
       if (item.id === id) {
         item.complete = !item.complete;
       }
       return item;
     });
 
-    setList(items);
+    dispatch({ type: 'SET_LIST', list: items });
   }
 
   return (
     <>
-      <Header incomplete={incomplete} />
+      <Header incomplete={state.list.filter((todo) => !todo.complete)} />
       <div className="container">
         <form className="form" onSubmit={handleSubmit}>
           <h2>Add To Do Item</h2>
@@ -75,15 +88,15 @@ const ToDo = () => {
           </label>
           <label>
             <Button type="submit">Add Item</Button>
-          </label>
+            </label>
         </form>
-        <List list={list} displayList={displayList} toggleComplete={toggleComplete} />
+        <List list={state.list} displayList={state.displayList} toggleComplete={toggleComplete} />
       </div>
       <Pagination
         className="Pagination"
-        total={Math.ceil((showCompleted ? list.length : incomplete.length) / numToDisplay)}
-        current={currentPage}
-        onChange={(page) => setCurrentPage(page)}
+        total={Math.ceil((showCompleted ? state.list.length : state.list.filter((todo) => !todo.complete).length) / numToDisplay)}
+        current={state.currentPage}
+        onChange={(page) => dispatch({ type: 'SET_CURRENT_PAGE', currentPage: page })}
       />
     </>
   );
