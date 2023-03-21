@@ -1,4 +1,4 @@
-# RESTy (Lab 26)
+# Todo-App (Lab 31)
 
 ## Project: Todo-App
 
@@ -26,9 +26,13 @@ Refactor an existing To Do App with Mantine Components, React Context API, and P
 
 No login currently, but To Dos can be created with details and difficulty level.
 
+Custom hook 'useForm' designed to DRY up form handling, specifically handling change and submit events. Typically forms are handled in similar ways so to prevent rewriting code we can abstract out the logic into this custom hook.
+
 #### Tests
 
 npm test
+
+Unit tests for simple components and an integration test to test the more complicated ones (Todo, Pagination, List).
 
 #### UML
 
