@@ -11,7 +11,8 @@ Refactor an existing To Do App with Mantine Components, React Context API, and P
 ### Links and Resources
 
 - [ci/cd](https://github.com/tyler-bennett52/todo-app/actions) (GitHub Actions)
-- [Sandbox (main)](https://jbds38-3000.csb.app/)
+- [Sandbox (main)](https://gqv8l0-3000.csb.app/)
+- [Sandbox (context-settings)](https://n6mny7-3000.csb.app/)
 
 ### Setup
 
@@ -19,7 +20,7 @@ Refactor an existing To Do App with Mantine Components, React Context API, and P
 
 - npm i to install dependencies
 - npm start to open page
-- alternatively access the app at this url <https://jbds38-3000.csb.app/>
+- alternatively access the app at this url <https://gqv8l0-3000.csb.app/>
 
 #### Features / Routes
 
