@@ -14,7 +14,7 @@ const ToDo = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
-  const { numToDisplay, showCompleted, sortingWord } = useContext(SettingsContext);
+  const { numToDisplay, showCompleted } = useContext(SettingsContext);
 
   useEffect(() => {
     const incompleteItems = list.filter((todo) => !todo.complete);
