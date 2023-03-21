@@ -36,4 +36,4 @@ Day 1 UML
 
 #### Attribution
 
-Built from starter code. Used chatGPT to generate sample tests which showed me the getByText and getByLabelText methods. Used that format for the majority of my tests.
+Built from starter code. Unit tests are mostly my own, but relied heavily on ChatGPT for app.test.jsx, specifically the renderWithContext function which is used in every test. Context test followed the format we used in class. List.test.js is my own logic, but chatGPT recommended the loop to test mulitple list items.
