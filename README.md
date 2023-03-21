@@ -28,6 +28,8 @@ No login currently, but To Dos can be created with details and difficulty level.
 
 Custom hook 'useForm' designed to DRY up form handling, specifically handling change and submit events. Typically forms are handled in similar ways so to prevent rewriting code we can abstract out the logic into this custom hook.
 
+Settings context is provided app-wide, but so far only consumed by Todo component where the core functionality of our app currently lives. Todo needs to know how many items to display, whether or not to display finished items, and if there is a non-standard sort order (difficulty). It uses this information from the settings context to determine how many pages there are to load for the Pagination component, and which items are display-worthy.
+
 #### Tests
 
 npm test
