@@ -30,10 +30,10 @@ No login currently, but To Dos can be created with details and difficulty level.
 npm test
 
 #### UML
+
 Day 1 UML
 ![Lab-30 UML](./public/Todo-UML.png)
 
 #### Attribution
 
 Built from starter code. Used chatGPT to generate sample tests which showed me the getByText and getByLabelText methods. Used that format for the majority of my tests.
-

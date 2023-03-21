@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import useForm from '../../hooks/form.js';
 import { SettingsContext } from '../../Context/Settings/index.jsx';
-import {Button, Pagination} from '@mantine/core'
+import { Button, Pagination } from '@mantine/core'
 import { v4 as uuid } from 'uuid';
 import './ToDo.css';
-import List from '../List'; 
+import List from '../List';
+import { Header } from '@mantine/core';
 
 const ToDo = () => {
   const [defaultValues,] = useState({
@@ -16,9 +17,6 @@ const ToDo = () => {
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
   const { numToDisplay, showCompleted, sortingWord } = useContext(SettingsContext);
-  // CREATE DISPLAY LIST STATE
-  // CREATE USEEFFECT THAT MONITORS PAGINATION, NUMTODISPLAY, SHOWCOMPLETED, SORTINGWORD
-  // EFFECT WILL UPDATE DISPLAYLIST UPON CHANGE OF THOSE 4 ITEMS
 
   useEffect(() => {
     let tempArray = [];
@@ -29,6 +27,7 @@ const ToDo = () => {
     let currPageItems = tempArray.splice(displayStart, numToDisplay);
     setDisplayList(currPageItems);
   }, [list, currentPage, numToDisplay, showCompleted])
+  
 
   function addItem(item) {
     item.id = uuid();
@@ -53,15 +52,11 @@ const ToDo = () => {
     setList(items);
   }
 
-  useEffect(() => {
-    let incompleteCount = list.filter(item => !item.complete).length;
-    setIncomplete(incompleteCount);
-    document.title = `To Do List: ${incomplete}`;
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [list]);
+
 
   return (
     <>
+      <Header incomplete={incomplete} />
       <p>{numToDisplay}, {sortingWord}, {showCompleted.toString()}</p>
       <div className="container">
         <form className="form" onSubmit={handleSubmit}>
@@ -90,10 +85,11 @@ const ToDo = () => {
         <List list={list} displayList={displayList} toggleComplete={toggleComplete} />
       </div>
       <Pagination
-      total={Math.ceil(showCompleted ? list.length : list.filter(todo => todo.complete === false).length / numToDisplay)}
-      current={currentPage}
-      onChange={(page) => setCurrentPage(page)
-      }/>
+        className='Pagination'
+        total={Math.ceil(showCompleted ? list.length : list.filter(todo => todo.complete === false).length / numToDisplay)}
+        current={currentPage}
+        onChange={(page) => setCurrentPage(page)
+        } />
     </>
   );
 };

@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import ToDo from './index';
+import { Header } from './index';
 
-describe('ToDo Component Tests', ()  => {
+describe('ToDo Component Tests', () => {
   test('render a header element as expected', () => {
-    render(<ToDo />);
+    render(<Header />);
 
     let header = screen.getByTestId('todo-header');
     let h1 = screen.getByTestId('todo-h1');
