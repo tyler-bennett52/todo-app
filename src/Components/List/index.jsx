@@ -16,10 +16,10 @@ const List = ({ displayList, toggleComplete, deleteItem }) => {
             >
               <Card.Section withBorder>
                 <Badge 
-                onClick={() => can('update') ? toggleComplete(item.id) : null}
+                onClick={() => can('update') ? toggleComplete(item._id) : null}
                 style={{ cursor: 'pointer', backgroundColor: item.complete ? 'green' : 'red' }}
                 >{item.complete ? 'Completed' : 'Incomplete'}</Badge>
-                {can('delete') && <span onClick={() => deleteItem(item.id)} style={{ cursor: "pointer", position: "absolute", right: "5px" }}>X</span>}
+                {can('delete') && <span onClick={() => deleteItem(item._id)} style={{ cursor: "pointer", position: "absolute", right: "5px" }}>X</span>}
               </Card.Section>
               <p>{item.text}</p>
               <p><small>Assigned to: {item.assignee}</small></p>
