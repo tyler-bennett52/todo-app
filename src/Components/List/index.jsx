@@ -16,8 +16,8 @@ const List = ({ displayList, toggleComplete, deleteItem }) => {
             >
               <Card.Section withBorder>
                 <Badge 
-                onClick={() => can('update') ? toggleComplete(item.id) : alert('Please login to do that')}
-                style={{ backgroundColor: item.complete ? 'green' : 'red' }}
+                onClick={() => can('update') ? toggleComplete(item.id) : null}
+                style={{ cursor: 'pointer', backgroundColor: item.complete ? 'green' : 'red' }}
                 >{item.complete ? 'Completed' : 'Incomplete'}</Badge>
                 {can('delete') && <span onClick={() => deleteItem(item.id)} style={{ cursor: "pointer", position: "absolute", right: "5px" }}>X</span>}
               </Card.Section>
