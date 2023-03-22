@@ -16,13 +16,14 @@ const AuthProvider = ({ children }) => {
   const _validateToken = (token) => {
     try {
       let validUser = jwt_decode(token);
+      console.log(validUser)
       if (validUser) {
         setUser(validUser);
         setIsLoggedIn(true);
       }
-    } catch (error) {
-      setError(error);
-      alert(error);
+    } catch (e) {
+      setError(e);
+      console.log(error, e);
     }
   }
 
@@ -33,7 +34,7 @@ const AuthProvider = ({ children }) => {
         _validateToken(user.token);
       } catch (error) {
         setError(error);
-        alert(error);
+        console.log(error);
       }
     }
   }
