@@ -15,6 +15,7 @@ Refactor an existing To Do App with Mantine Components, React Context API, and P
 - [Sandbox (context-settings)](https://n6mny7-3000.csb.app/)
 - [Sandbox (context-methods)](https://ihigeg-3000.csb.app/)
 - [Sandbox (auth)](https://7iwqio-3000.csb.app/)
+- [Sandbox (auth2-class34)](https://4pbj9z-3000.csb.app/)
 
 ### Setup
 
