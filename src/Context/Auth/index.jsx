@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import Cookies from "js-cookie";
-import axios from "axios";
 
 const AuthContext = React.createContext();
 
@@ -47,18 +46,19 @@ const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post(
+      const response = await fetch(
         "https://api-js401.herokuapp.com/signin",
-        {},
         {
-          auth: {
-            username,
-            password,
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Basic " + btoa(`${username}:${password}`)
           },
         }
       );
 
-      const token = response.data.token;
+      const data = await response.json();
+      const token = data.token;
       _validateToken(token);
     } catch (error) {
       setError(error);
@@ -68,12 +68,19 @@ const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
-      const response = await axios.post(
+      const response = await fetch(
         "https://api-js401.herokuapp.com/signup",
-        userData
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
       );
 
-      const token = response.data.token;
+      const data = await response.json();
+      const token = data.token;
       _validateToken(token);
     } catch (error) {
       setError(error);
