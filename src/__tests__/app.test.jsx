@@ -5,7 +5,7 @@ import { SettingsContext } from '../Context/Settings/index';
 import { AuthProvider, AuthContext } from "../Context/Auth";
 import App from '../App'
 
-const myUser = {capabilities: ['read', 'update', 'create', 'delete']}
+const myUser = { capabilities: ['read', 'update', 'create', 'delete'] }
 const can = (capability) => {
   return true;
 }
@@ -17,13 +17,13 @@ const renderWithContext = (component) => {
       user: myUser,
       can: can,
     }}>
-    <SettingsContext.Provider value={{
-      numToDisplay: 3,
-      showCompleted: false,
-      sortingWord: 'difficulty',
-    }}>
-      {component}
-    </SettingsContext.Provider>
+      <SettingsContext.Provider value={{
+        numToDisplay: 3,
+        showCompleted: false,
+        sortingWord: 'difficulty',
+      }}>
+        {component}
+      </SettingsContext.Provider>
     </AuthContext.Provider>
   );
 };
@@ -35,7 +35,7 @@ describe('App', () => {
     renderWithContext(<App />);
     const usernameInput = screen.getByPlaceholderText("Username");
     const passwordInput = screen.getByPlaceholderText("Password");
-  
+
     usernameInput.value = 'admin';
     passwordInput.value = 'ADMIN';
 

@@ -17,7 +17,7 @@ const customRender = (ui, { providerProps, ...renderOptions }) => {
 test("renders Navbar component with login form when not logged in", () => {
   const providerProps = {
     value: {
-      isLoggedin: false,
+      isLoggedIn: false,
       login: jest.fn(),
       logout: jest.fn(),
     },
@@ -33,7 +33,7 @@ test("renders Navbar component with login form when not logged in", () => {
 test("renders Navbar component with logout button when logged in", () => {
   const providerProps = {
     value: {
-      isLoggedin: true,
+      isLoggedIn: true,
       login: jest.fn(),
       logout: jest.fn(),
     },
@@ -50,7 +50,7 @@ test("handles login and logout correctly", () => {
 
   const providerProps = {
     value: {
-      isLoggedin: false,
+      isLoggedIn: false,
       login: mockLogin,
       logout: mockLogout,
     },
@@ -68,7 +68,7 @@ test("handles login and logout correctly", () => {
 
   expect(mockLogin).toHaveBeenCalledWith("testuser", "testpassword");
 
-  providerProps.value.isLoggedin = true;
+  providerProps.value.isLoggedIn = true;
 
   customRender(<Navbar />, { providerProps });
 

@@ -1,29 +1,45 @@
+import React, { useContext, useReducer } from 'react';
 import { TextInput, NumberInput, Switch, Text, Button } from '@mantine/core';
-import { useContext, useState } from 'react';
 import { SettingsContext } from '../../Context/Settings';
 
+const settingsReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_SHOW_COMPLETED':
+      return { ...state, showCompleted: action.payload };
+    case 'SET_NUM_TO_DISPLAY':
+      return { ...state, numToDisplay: action.payload };
+    case 'SET_SORTING_WORD':
+      return { ...state, sortingWord: action.payload };
+    default:
+      return state;
+  }
+};
+
 const Settings = () => {
-  // Retrieve the current settings and their setters from context
-  const { numToDisplay, showCompleted, sortingWord, setNumToDisplay, setShowCompleted, setSortingWord } = useContext(SettingsContext);
+  const {
+    numToDisplay,
+    showCompleted,
+    sortingWord,
+    setNumToDisplay,
+    setShowCompleted,
+    setSortingWord,
+  } = useContext(SettingsContext);
 
-  // Initialize form state values
-  const [numDisplayForm, setNumDisplayForm] = useState(numToDisplay);
-  const [toggle, setToggle] = useState(showCompleted);
-  const [sortWordForm, setSortWordForm] = useState(sortingWord);
+  const [formState, dispatch] = useReducer(settingsReducer, {
+    showCompleted,
+    numToDisplay,
+    sortingWord,
+  });
 
-  // Handle form submission
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    // Update the settings in context
-    setShowCompleted(toggle);
-    setNumToDisplay(numDisplayForm);
-    setSortingWord(sortWordForm);
+    setShowCompleted(formState.showCompleted);
+    setNumToDisplay(formState.numToDisplay);
+    setSortingWord(formState.sortingWord);
 
-    // Save settings to local storage
-    const settingsObj = { numToDisplay: numDisplayForm, showCompleted: toggle, sortingWord: sortWordForm };
-    localStorage.setItem('Settings', JSON.stringify(settingsObj));
-  }
+    localStorage.setItem('Settings', JSON.stringify(formState));
+  };
 
   return (
     <div className="Settings">
@@ -32,27 +48,39 @@ const Settings = () => {
       </header>
 
       <div className="container" style={{ display: "flex", width: "80%", justifyContent: "space-around", padding: "1rem" }}>
-        {/* Settings form */}
-        <form onSubmit={(event) => handleSubmit(event)}>
-          {/* Show completed tasks switch */}
+        <form onSubmit={handleSubmit}>
           <label>
             <Text>Show complete</Text>
-            <Switch checked={toggle} onChange={() => setToggle(!toggle)} />
+            <Switch
+              checked={formState.showCompleted}
+              onChange={() =>
+                dispatch({ type: 'SET_SHOW_COMPLETED', payload: !formState.showCompleted })
+              }
+            />
           </label>
-          {/* Number of items to display per page input */}
           <label>
             <Text>Items Per Page</Text>
-            <NumberInput min={0} max={10} value={numDisplayForm} onChange={(value) => setNumDisplayForm(value)} />
+            <NumberInput
+              min={0}
+              max={10}
+              value={formState.numToDisplay}
+              onChange={(value) =>
+                dispatch({ type: 'SET_NUM_TO_DISPLAY', payload: value })
+              }
+            />
           </label>
-          {/* Optional sort order word input */}
           <label>
             <Text>Optional Sort Order Word</Text>
-            <TextInput value={sortWordForm} onChange={(event) => { setSortWordForm(event.target.value) }} />
+            <TextInput
+              value={formState.sortingWord}
+              onChange={(event) =>
+                dispatch({ type: 'SET_SORTING_WORD', payload: event.target.value })
+              }
+            />
           </label>
-          {/* Submit button */}
-          <Button type='submit'>Submit!</Button>
+          <Button type="submit">Save Settings</Button>
         </form>
-        {/* Display the updated settings */}
+
         <section>
           <h3>Updated Settings</h3>
           <p>Show Completed Tasks - {showCompleted.toString()}</p>
@@ -62,6 +90,6 @@ const Settings = () => {
       </div>
     </div>
   );
-}
+};
 
 export default Settings;

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { AuthProvider, AuthContext } from "../../Context/Auth";
 
-const myUser = {capabilities: ['read', 'update', 'create', 'delete']}
+const myUser = { capabilities: ['read', 'update', 'create', 'delete'] }
 const can = (capability) => {
   return true;
 }
@@ -40,7 +40,7 @@ describe('List Component', () => {
       },
     ];
 
-    renderWithContext(<List list={displayList} displayList={displayList} toggleComplete={() => {}} />);
+    renderWithContext(<List list={displayList} displayList={displayList} toggleComplete={() => { }} />);
 
     displayList.forEach((item) => {
       const itemText = screen.getByText(item.text);
