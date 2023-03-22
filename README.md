@@ -14,6 +14,7 @@ Refactor an existing To Do App with Mantine Components, React Context API, and P
 - [Sandbox (main)](https://gqv8l0-3000.csb.app/)
 - [Sandbox (context-settings)](https://n6mny7-3000.csb.app/)
 - [Sandbox (context-methods)](https://ihigeg-3000.csb.app/)
+- [Sandbox (auth)](https://7iwqio-3000.csb.app/)
 
 ### Setup
 
@@ -25,7 +26,9 @@ Refactor an existing To Do App with Mantine Components, React Context API, and P
 
 #### Features / Routes
 
-No login currently, but To Dos can be created with details and difficulty level.
+Can login using the following sample user/password combos: user/USER, editor/EDITOR, admin/ADMIN.
+
+RBAC is rolled out for all CRUD functionality involving to-dos.
 
 Can access settings form via nav bar. Settings will be saved to local storage. Can choose to hide/show completed todos, how many per page, and set a sorting word (inoperable for now).
 
