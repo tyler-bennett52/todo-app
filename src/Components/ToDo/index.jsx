@@ -6,6 +6,7 @@ import { v4 as uuid } from 'uuid';
 import './ToDo.css';
 import List from '../List';
 import Header from '../Header/index.jsx';
+import { AuthContext } from '../../Context/Auth/index.jsx';
 
 const ToDo = () => {
   const [defaultValues] = useState({ difficulty: 4 });
@@ -15,6 +16,7 @@ const ToDo = () => {
   const [incomplete, setIncomplete] = useState([]);
   const { handleChange, handleSubmit } = useForm(addItem, defaultValues);
   const { numToDisplay, showCompleted } = useContext(SettingsContext);
+  const { can } = useContext(AuthContext)
 
   useEffect(() => {
     const incompleteItems = list.filter((todo) => !todo.complete);
@@ -52,39 +54,43 @@ const ToDo = () => {
     <>
       <Header incomplete={incomplete} />
       <div className="container">
-        <form className="form" onSubmit={handleSubmit}>
-          <h2>Add To Do Item</h2>
-          <label>
-            <span>To Do Item </span>
-            <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
-          </label>
-          <label>
-            <span>Assigned To  </span>
-            <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
-          </label>
-          <label>
-            <span>Difficulty  </span>
-            <input
-              onChange={handleChange}
-              defaultValue={defaultValues.difficulty}
-              type="range"
-              min={1}
-              max={5}
-              name="difficulty"
-            />
-          </label>
-          <label>
-            <Button type="submit">Add Item</Button>
-          </label>
-        </form>
+        {
+          can('create')
+            ? <form className="form" onSubmit={handleSubmit}>
+              <h2>Add To Do Item</h2>
+              <label>
+                <span>To Do Item </span>
+                <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+              </label>
+              <label>
+                <span>Assigned To  </span>
+                <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+              </label>
+              <label>
+                <span>Difficulty  </span>
+                <input
+                  onChange={handleChange}
+                  defaultValue={defaultValues.difficulty}
+                  type="range"
+                  min={1}
+                  max={5}
+                  name="difficulty"
+                />
+              </label>
+              <label>
+                <Button type="submit">Add Item</Button>
+              </label>
+            </form>
+            : <p>Sorry you do not have permission to do Create a To-Do or like basically anything. Please login.</p>
+        }
         <List list={list} displayList={displayList} toggleComplete={toggleComplete} deleteItem={deleteItem} />
       </div>
-      <Pagination
+        {can('create') && <Pagination
         className="Pagination"
         total={Math.ceil((showCompleted ? list.length : incomplete.length) / numToDisplay)}
         current={currentPage}
         onChange={(page) => setCurrentPage(page)}
-      />
+      />}
     </>
   );
 };
