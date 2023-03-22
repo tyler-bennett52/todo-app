@@ -27,7 +27,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const can = (capability) => {
+const can = (capability) => {
     return user?.capabilities?.includes(capability);
   }
 
@@ -73,4 +73,4 @@ const AuthProvider = ({ children }) => {
   )
 }
 
-export { AuthProvider, AuthContext }
+export { AuthProvider, AuthContext}

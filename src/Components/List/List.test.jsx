@@ -1,7 +1,24 @@
 import List from '.';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
+import { AuthProvider, AuthContext } from "../../Context/Auth";
 
+const myUser = {capabilities: ['read', 'update', 'create', 'delete']}
+const can = (capability) => {
+  return true;
+}
+
+const renderWithContext = (component) => {
+  return render(
+    <AuthContext.Provider value={{
+      isLoggedIn: true,
+      user: myUser,
+      can: can,
+    }}>
+      {component}
+    </AuthContext.Provider>
+  );
+};
 
 
 describe('List Component', () => {
@@ -23,13 +40,13 @@ describe('List Component', () => {
       },
     ];
 
-    render(<List list={displayList} displayList={displayList} toggleComplete={() => {}} />);
+    renderWithContext(<List list={displayList} displayList={displayList} toggleComplete={() => {}} />);
 
     displayList.forEach((item) => {
       const itemText = screen.getByText(item.text);
       const assigneeText = screen.getByText(`Assigned to: ${item.assignee}`);
       const difficultyText = screen.getByText(`Difficulty: ${item.difficulty}`);
-      const completeText = screen.getByText(`Complete: ${item.complete.toString()}`);
+      const completeText = screen.getByText(`Incomplete`);
 
       expect(itemText).toBeInTheDocument();
       expect(assigneeText).toBeInTheDocument();
