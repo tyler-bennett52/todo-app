@@ -1,6 +1,7 @@
 import { TextInput, NumberInput, Switch, Text, Button } from '@mantine/core';
 import { useContext, useState } from 'react';
 import { SettingsContext } from '../../Context/Settings';
+import Header from '../Header';
 
 const Settings = () => {
   // Retrieve the current settings and their setters from context
@@ -27,13 +28,12 @@ const Settings = () => {
 
   return (
     <div className="Settings">
-      <header style={{ width: "80%", padding: "1rem" }}>
-        Manage Settings
-      </header>
+      <Header />
 
       <div className="container" style={{ display: "flex", width: "80%", justifyContent: "space-around", padding: "1rem" }}>
         {/* Settings form */}
-        <form onSubmit={(event) => handleSubmit(event)}>
+        
+        <form style={{border: '1px black solid', padding: '2rem', fontSize: '2rem'}} onSubmit={(event) => handleSubmit(event)}>
           {/* Show completed tasks switch */}
           <label>
             <Text>Show complete</Text>
@@ -53,7 +53,7 @@ const Settings = () => {
           <Button type='submit'>Submit!</Button>
         </form>
         {/* Display the updated settings */}
-        <section>
+        <section style={{fontSize: '1.7rem', border: '1px black solid', padding: '2rem'}} >
           <h3>Updated Settings</h3>
           <p>Show Completed Tasks - {showCompleted.toString()}</p>
           <p>Display X Items Per Page - {numToDisplay}</p>

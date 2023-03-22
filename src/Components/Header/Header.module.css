@@ -1,4 +1,11 @@
 header { 
   width: 90%;
+  padding: .5rem;
   margin: 2% auto;
+  background-color: rgb(44, 64, 64);
+  color: white
+}
+
+h1 {
+  margin-left: 2%;
 }
