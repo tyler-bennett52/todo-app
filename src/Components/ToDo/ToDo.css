@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  border: 2px white solid;
+  width: 90%;
+}
+
+.Pagination {
+  margin: 0 auto;
+  width: 90%;
+  justify-content: center;
+}
+
+.form {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+}
+
+.card-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 60%;
+}
+
+.item {
+  width: 100%;
+}

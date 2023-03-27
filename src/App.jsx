@@ -1,11 +1,19 @@
 import React from 'react';
 
-import ToDo from './Components/ToDo/ToDo';
+import ToDo from './Components/ToDo';
+import './style.css'
 
 export default class App extends React.Component {
   render() {
     return (
-      <ToDo />
+      <>
+      <nav><ul style={{listStyle: "none", display: "flex", justifyContent: "space-around", backgroundColor: "#3A7ED0", padding: "1rem", margin: 0}} className="links">
+        <li>Home</li>
+        <li>Settings</li>
+        <li>Login</li>
+      </ul></nav>
+        <ToDo />
+      </>
     );
   }
 }
