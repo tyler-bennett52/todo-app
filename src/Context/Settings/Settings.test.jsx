@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { render, screen } from '@testing-library/react';
-import { SettingsProvider, SettingsContext } from './Settings';
+import { SettingsProvider, SettingsContext } from '.';
 
 const TestComponent = () => {
   const { numToDisplay, showCompleted, sortingWord } = useContext(SettingsContext);

@@ -41,7 +41,7 @@ const Settings = () => {
           </label>
           {/* Number of items to display per page input */}
           <label>
-            <Text>Mantine Number Input</Text>
+            <Text>Items Per Page</Text>
             <NumberInput min={0} max={10} value={numDisplayForm} onChange={(value) => setNumDisplayForm(value)} />
           </label>
           {/* Optional sort order word input */}
