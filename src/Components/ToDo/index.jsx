@@ -77,9 +77,7 @@ const ToDo = () => {
                   name="difficulty"
                 />
               </label>
-              <label>
-                <Button type="submit">Add Item</Button>
-              </label>
+                <Button style={{width: 'fit-content'}} type="submit">Add Item</Button>
             </form>
             : <p>Sorry you do not have permission to do Create a To-Do or like basically anything. Please login.</p>
         }
