@@ -12,12 +12,12 @@ const List = ({ displayList, toggleComplete, deleteItem }) => {
           ? displayList.map(item => (
             <Card
               key={item.id}
-              style={{ width: '100%', marginBottom: '1rem', boxShadow: "2px 2px 2px 2px" }}
+              style={{ width: '100%', marginBottom: '1rem', boxShadow: "1px 5px 7px 2px" }}
             >
               <Card.Section withBorder>
                 <Badge 
                 onClick={() => can('update') ? toggleComplete(item._id) : null}
-                style={{ cursor: 'pointer', backgroundColor: item.complete ? 'green' : 'red' }}
+                style={{ marginLeft: '5px', cursor: 'pointer', backgroundColor: item.complete ? 'green' : 'red', color: item.complete ? 'white' : 'black' }}
                 >{item.complete ? 'Completed' : 'Incomplete'}</Badge>
                 {can('delete') && <span onClick={() => deleteItem(item._id)} style={{ cursor: "pointer", position: "absolute", right: "5px" }}>X</span>}
               </Card.Section>

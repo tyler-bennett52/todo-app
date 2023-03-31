@@ -14,15 +14,15 @@ const Navbar = () => {
     <nav style={{ backgroundColor: "#3A7ED0", display: "flex" }}>
       <ul style={{ listStyle: "none", display: "flex", justifyContent: "space-around", padding: "1rem", margin: 0, width: "12%", }} className="links">
         <li>
-          <Link to="/">Home</Link>
+          <Link style={{color: 'white'}} to="/">Home</Link>
         </li>
         <li>
-          <Link to="/settings">Settings</Link>
+          <Link style={{color: 'white'}} to="/settings">Settings</Link>
         </li>
       </ul>
       {
         isLoggedin
-          ?  <Button color={'red'} onClick={handleLogout} style={{position: 'absolute', right: '3%' , marginTop: '10px'}}>Logout</Button>
+          ?  <Button color={'red'} onClick={handleLogout} style={{position: 'absolute', right: '3%' , marginTop: '10px', color: 'black'}}>Logout</Button>
           : <form onSubmit={(event) => handleSubmit(event)}>
             <ul style={{ width: "40%", display: "flex", justifyContent: "space-between", position: 'absolute', right: '0', marginRight: '15px' }}>
               <input onChange={(event) => {setUsername(event.target.value)}} type="text" placeholder='Username' />
